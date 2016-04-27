@@ -1,12 +1,12 @@
 # EasyCSV
 
-----
+
 ## What it does
 
 
 > A python script to convert one CSV structure to another. At the moment, you must hardcode your export structure (headers) to make this work. Useful for importing CSV files directly into a DB.
 
-----
+
 ## Usage
 
 * **set** -  A ':' delimited command to bind the index of an attribute in the input CSV to its corresponding new CSV attribute.
@@ -22,9 +22,6 @@
 * **help** - Shows this menu
 
 
-
-
-----
 ## Changelog
 * 21-April-2016 -- First version
 
