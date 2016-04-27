@@ -10,7 +10,7 @@
 
 > Pick which script you would like to run. EasyCSV.py will export a single CSV stucture, while EasyCSV-x will allow for you to export 'x' number of CSV structures from your input data. 
 
-> Open the Python file you chose and hardcode as many CSV headers as you'd like. Every header you choose must be inserted as such: DbAtts['YOUR_HEADER']. Rinse and repeat this process for any additional tables (if you chose a version of this script that allows for multiple export structures).
+> Open the Python file you chose and hardcode as many CSV headers as you'd like. Every header you choose must be inserted as such: DbAtts['YOUR_HEADER']. Rinse and repeat this process for any additional 'tables' (if you chose a version of this script that allows for multiple export structures).
 
 ## Usage
 
