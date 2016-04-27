@@ -1,0 +1,13 @@
+pwsid,site,cobranded,handle,email,countrycode,partnered,language,ccid,chargebacks,declines,level,length,n_order,m_order,n_reorder,m_reorder,n_rebill,m_rebill,sex,race,birthdate,state,zip,ip,deleted,flags
+2015988_35619,bdsm,0,badboy691972,badboy691972@yahoo.com,US,p9337,,0,0,0,0,0,0,0,0,0,0,0,Man,Caucasian,72-10-14,Tennessee,37814,216.78.29.225,0,0
+2013655_34859,bdsm,0,whipass70,whipass70@hotmail.com,US,p5203,english,0,0,0,300,3,1,79.87,0,0,3,59.7,Man,Caucasian,57-12-16,Tennessee,37172,152.163.205.68,0,0
+2015940_52510,bdsm,0,dc_pervert,dc_pervert@yahoo.com,US,p5330,,0,0,0,200,3,1,35.97,0,0,1,12.97,Man,Caucasian,68-03-21,Maryland,,12.98.97.131,0,0
+2018424_50233,bdsm,0,JanelR,janelr2000@yahoo.com,US,p5203,,0,0,1,200,3,1,35.97,5,443.76,0,0,Man,Caucasian,71-04-07,District of Columbia,,66.44.41.174,0,0
+2013629_53307,bdsm,0,rmagnum,Rmagnum2001@yahoo.com,US,p4388c,,0,0,0,200,3,1,35.97,0,0,0,0,Man,Caucasian,61-09-23,Florida,33774,4.34.182.34,0,0
+2011141_37834,bdsm,0,wolfh.d.,wolf444@netzero.net,US,p823,,6577918,0,1,200,3,1,35.97,2,71.94,0,0,Man,Caucasian,63-11-05,North Carolina,,67.240.97.117,0,0
+2020511_82611,bdsm,0,badboy647,maverick647@aol.com,US,p5330,,0,0,0,0,0,0,0,0,0,0,0,Man,Caucasian,47-06-24,Michigan,48035,152.163.201.183,0,0
+2013542_32021,bdsm,0,fuzynvts,fuzynvts@yahoo.com,US,p6903c,,4706060,0,1,200,3,1,35.97,0,0,0,0,Man,Caucasian,75-02-04,,,216.45.65.176,0,0
+2020465_24753,bdsm,0,gazell99,stuffmeimmobile@yahoo.com,US,p5202,english,0,0,0,200,3,1,35.97,0,0,0,0,Man,Caucasian,62-08-31,North Carolina,27615,213.166.48.51,0,0
+2020457_17669,bdsm,0,Domme_me_Plz,NCProfessional@att.net,US,p5203,,5340103,0,0,300,3,1,59.97,0,0,0,0,Man,Caucasian,49-05-30,North Carolina,27103,12.93.62.50,0,0
+51215711_80352,ffgay,0,112358,rlalumiere@friendfinderinc.com,US,p19336,english,0,0,0,300,12,1,139.94,0,0,0,0,Man,Prefer not t,76-01-01,New York,12345,209.157.235.2,0,0
+255050918_58296,ffadult,0,yoda611,jimbmal@yahoo.com,US,p634078.subadult_AFF_USA_022311,english,0,0,0,200,1,1,21.99,0,0,0,0,Man,Caucasian,57-08-16,Maine,3909,64.223.232.127,0,0

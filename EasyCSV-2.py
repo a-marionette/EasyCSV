@@ -32,7 +32,7 @@ while done == False:
             print header + '[' + str(x) + ']'
 
     getIndexes()
-
+    
 
 
     ## !----     SET STRUCTURE OF EXPORT TABLE #1 (REPLACE WITH YOUR NEW DESIRED CSV HEADERS)   -------!>
@@ -65,6 +65,16 @@ while done == False:
     dbAtts['comment'] = ''
     dbAtts['source'] = ''
 
+    ## !----     SET STRUCTURE OF EXPORT TABLE #2   -------!>
+
+    dbAtts2 = OrderedDict()
+    dbAtts2['email_id'] = ''
+    dbAtts2['email'] = ''
+    dbAtts2['source'] = ''
+    dbAtts2['url'] = ''
+    dbAtts2['timestamp'] = ''
+    dbAtts2['domain'] = ''
+
 
     ## !----     FUNCTION TABLE #1: PRINT THE ATTRIBUTES TO BE EXPORTED AND SEE IF THEY ARE MAPPED/SET TO INPUT CSV ATTRIBUTES   -------!>
 
@@ -81,6 +91,20 @@ while done == False:
 
     set_attribute = ''
 
+    ## !----     DEBUG FUNCTION   -------!>
+
+    def printAttrs2():
+        for key in dbAtts2:
+            if dbAtts2.get(key) == '':
+                print key + ': ' + "\033[31m Not Set \033[0m"
+            else:
+                print key + ': ' + "\033[32m" + dbAtts2.get(key) + "\033[0m"
+
+    print '\n\nTABLE #2'
+    print '-' * 20
+    printAttrs2()
+
+
     ## !----     BEGIN USER DECISIONS WITH THIS MENU   -------!>
 
     while set_attribute != "e":
@@ -90,11 +114,18 @@ while done == False:
             if set_attribute[1] in dbAtts:
                 dbAtts[set_attribute[1]] = set_attribute[2]
                 print '\nYou set ' +  "\033[32m" + set_attribute[1] + "\033[0m" + ' to ' + "\033[32m" + dbAtts.get(set_attribute[1]) + "\033[0m"
+            if set_attribute[1] in dbAtts2:
+                dbAtts2[set_attribute[1]] = set_attribute[2]
+                if set_attribute[1] not in dbAtts:
+                    print '\nYou set ' +  "\033[32m" + set_attribute[1] + "\033[0m" + ' to ' + "\033[32m" + dbAtts.get(set_attribute[1]) + "\033[0m"
 
         elif set_attribute == 'show':
             print '\nTABLE #1'
             print '-' * 20
             printAttrs()
+            print '\n\nTABLE #2'
+            print '-' * 20
+            printAttrs2()
         elif set_attribute == 'columns':
             print '\n'
             getIndexes()
@@ -129,29 +160,63 @@ while done == False:
     #print columnList
 
 
+
+    ## !----     THE CONFUSING FUNCTION (TABLE 2): USE A DICT TO STORE THE KEY AS 'INPUT CSV INDEXES' AND VALUE AS 'INDEX OF WHERE TO WRITE ATTRIBUTE IN NEW CSV'   -------!>
+
+    columnList2 = {}
+
+    def grabIndexes2():
+        for key in dbAtts2:
+            if dbAtts2.get(key) == '':
+                pass
+            else:
+                # The dictionary key is the column of the attribute column from the input CSV (Read)
+                # The value for the key is the column of its location in the new CSV (Write)
+                columnList2[dbAtts2.get(key)] = dbAtts2.keys().index(key)
+
+    grabIndexes2();
+    #print columnList2
+
+
     ## !----    CREATES A NEW LINE WITH INPUT DATA (USING KEY AS READ LOCATION INDEX FROM INPUT FILE ) AND (USING VALUE AS WRITE LOCATION INDEX IN LINE)
 
 
     tableheaders = ','.join(dbAtts)
+    table2headers = ','.join(dbAtts2)
     #print '\n\nHeader List (Table #1): \n\n' + tableheaders + '\n'
+    #print 'Header List (Table #2): \n\n' + table2headers + '\n\n'
     filename = str(firstfile.split('.')[0]) + '-NewExportFormat.txt'
     fileout = open(filename,'a')
+    filename2 = str(firstfile.split('.')[0]) + '-NewExportFormat-2.txt'
+    fileout2 = open(filename2,'a')
     if firstrun == True:
         fileout.write(tableheaders + '\n')
+        fileout2.write(table2headers + '\n')
     with open(file) as inputdata:
         next(inputdata)
         for line in inputdata:
             linearray = line.strip().split(',')
             newlinearray = len(dbAtts) * ['']
+            newlinearray2 = len(dbAtts2) * ['']
             for column_key in columnList:
                 #First argument is the insert point, second is the column_key to read from
                 #print 'Table #1: Write Index: ' + str(columnList.get(column_key)) +  '  ' + 'Read Index: ' +  column_key + '  (' + str(linearray[int(column_key)]) + ')'
                 newlinearray[columnList.get(column_key)] = linearray[int(column_key)]
 
+            ## WRITE TABLE #2 TO FILE (LINE BY LINE AND SAME AS ABOVE)
+
+            for column_key2 in columnList2:
+                #First argument is the insert point, second is the column_key to read from
+                #print 'Table #2: Write Index: ' + str(columnList2.get(column_key2)) +  '  ' + 'Read Index: ' +  column_key2 + '  (' + str(linearray[int(column_key2)]) + ')'
+                newlinearray2[columnList2.get(column_key2)] = linearray[int(column_key2)]
+
             newlinestring = ",".join(newlinearray)
+            newlinestring2 = ",".join(newlinearray2)
             #print '\n\nTable #1: ' + newlinestring
+            #print 'Table #2: ' + newlinestring2
             fileout.write(newlinestring + '\n')
-    
+            fileout2.write(newlinestring2 + '\n')
+
     firstrun = False
 
     answer = raw_input('Do you want to append another input file to your new CSV? (Y/N)').upper()
