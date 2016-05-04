@@ -32,7 +32,8 @@ while done == False:
             print header + '[' + str(x) + ']'
 
     getIndexes()
-    
+
+    emailindex = headers_array.index('email')
 
 
     ## !----     SET STRUCTURE OF EXPORT TABLE #1 (REPLACE WITH YOUR NEW DESIRED CSV HEADERS)   -------!>
@@ -203,12 +204,28 @@ while done == False:
                 #print 'Table #1: Write Index: ' + str(columnList.get(column_key)) +  '  ' + 'Read Index: ' +  column_key + '  (' + str(linearray[int(column_key)]) + ')'
                 newlinearray[columnList.get(column_key)] = linearray[int(column_key)]
 
+                # Derive domain attribute if indicated by desired CSV output
+
+            if dbAtts.keys().index('domain'):
+                try:
+                    newlinearray[dbAtts.keys().index('domain')] = str(linearray[int(emailindex)]).split('@')[1].lower()
+                except:
+                    pass
+
             ## WRITE TABLE #2 TO FILE (LINE BY LINE AND SAME AS ABOVE)
 
             for column_key2 in columnList2:
                 #First argument is the insert point, second is the column_key to read from
                 #print 'Table #2: Write Index: ' + str(columnList2.get(column_key2)) +  '  ' + 'Read Index: ' +  column_key2 + '  (' + str(linearray[int(column_key2)]) + ')'
                 newlinearray2[columnList2.get(column_key2)] = linearray[int(column_key2)]
+
+                # Derive domain attribute if indicated by desired CSV output
+
+            if dbAtts2.keys().index('domain'):
+                try:
+                    newlinearray2[dbAtts2.keys().index('domain')] = str(linearray[int(emailindex)]).split('@')[1].lower()
+                except:
+                    pass
 
             newlinestring = ",".join(newlinearray)
             newlinestring2 = ",".join(newlinearray2)

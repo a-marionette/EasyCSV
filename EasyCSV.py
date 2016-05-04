@@ -33,6 +33,8 @@ while done == False:
 
     getIndexes()
 
+    emailindex = headers_array.index('email')
+
 
 
     ## !----     SET STRUCTURE OF EXPORT TABLE #1 (REPLACE WITH YOUR NEW DESIRED CSV HEADERS)   -------!>
@@ -148,10 +150,20 @@ while done == False:
                 #print 'Table #1: Write Index: ' + str(columnList.get(column_key)) +  '  ' + 'Read Index: ' +  column_key + '  (' + str(linearray[int(column_key)]) + ')'
                 newlinearray[columnList.get(column_key)] = linearray[int(column_key)]
 
+
+        # Derive domain attribute if indicated by desired CSV output
+
+            if dbAtts.keys().index('domain'):
+                try:
+                    newlinearray[dbAtts.keys().index('domain')] = str(linearray[int(emailindex)]).split('@')[1]
+                except:
+                    pass
+
+
             newlinestring = ",".join(newlinearray)
             #print '\n\nTable #1: ' + newlinestring
             fileout.write(newlinestring + '\n')
-    
+
     firstrun = False
 
     answer = raw_input('Do you want to append another input file to your new CSV? (Y/N)').upper()
