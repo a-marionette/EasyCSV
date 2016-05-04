@@ -1,18 +1,25 @@
 from colored import fg, bg, attr
 from collections import OrderedDict
+import os
 
 ## !----     BEGIN READING INPUT FILE   -------!>
 
 done = False
 firstrun = True
 
+sourcevalue = raw_input('\nEnter the name of the website or database this data originates from..\n\n')
+
 while done == False:
 
-    if firstrun == True:
-        file = raw_input('Specify the full name and extension of the first file to read from..\n\n')
-        firstfile = file
-    else:
-        file = raw_input('Specify the full name and extension of the next file to read from..\n\n')
+    file = ''
+
+    while os.path.isfile(file) == False:
+        if firstrun == True:
+            file = raw_input('\nSpecify the full name and extension of the first file to read from..\n\n')
+            firstfile = file
+        else:
+            file = raw_input('Specify the full name and extension of the next file to read from..\n\n')
+
 
     with open(file, 'r') as f:
         first_line = f.readline()
@@ -33,7 +40,8 @@ while done == False:
 
     getIndexes()
 
-    emailindex = headers_array.index('email')
+    if 'email' in headers_array:
+        emailindex = headers_array.index('email')
 
 
 
@@ -72,7 +80,9 @@ while done == False:
 
     def printAttrs():
         for key in dbAtts:
-            if dbAtts.get(key) == '':
+            if key == 'domain' or key == 'source':
+                print key + ': ' + "\033[33m Derived \033[0m"
+            elif dbAtts.get(key) == '':
                 print key + ': ' + "\033[31m Not Set \033[0m"
             else:
                 print key + ': ' + "\033[32m" + dbAtts.get(key) + "\033[0m"
@@ -147,15 +157,21 @@ while done == False:
             newlinearray = len(dbAtts) * ['']
             for column_key in columnList:
                 #First argument is the insert point, second is the column_key to read from
-                #print 'Table #1: Write Index: ' + str(columnList.get(column_key)) +  '  ' + 'Read Index: ' +  column_key + '  (' + str(linearray[int(column_key)]) + ')'
+                print 'Table #1: Write Index: ' + str(columnList.get(column_key)) +  '  ' + 'Read Index: ' +  column_key + '  (' + str(linearray[int(column_key)]) + ')'
                 newlinearray[columnList.get(column_key)] = linearray[int(column_key)]
 
 
-        # Derive domain attribute if indicated by desired CSV output
+        # Derive domain and source attribute if indicated by desired CSV output (Make this optional for public use)
 
             if dbAtts.keys().index('domain'):
                 try:
                     newlinearray[dbAtts.keys().index('domain')] = str(linearray[int(emailindex)]).split('@')[1]
+                except:
+                    pass
+
+            if dbAtts.keys().index('source'):
+                try:
+                    newlinearray[dbAtts.keys().index('source')] = sourcevalue
                 except:
                     pass
 

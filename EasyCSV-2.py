@@ -1,18 +1,26 @@
 from colored import fg, bg, attr
 from collections import OrderedDict
+import os
 
 ## !----     BEGIN READING INPUT FILE   -------!>
 
 done = False
 firstrun = True
 
+sourcevalue = raw_input('\nEnter the name of the website or database this data originates from..\n\n')
+
 while done == False:
 
-    if firstrun == True:
-        file = raw_input('Specify the full name and extension of the first file to read from..\n\n')
-        firstfile = file
-    else:
-        file = raw_input('Specify the full name and extension of the next file to read from..\n\n')
+    file = ''
+
+    while os.path.isfile(file) == False:
+        if firstrun == True:
+            file = raw_input('\nSpecify the full name and extension of the first file to read from..\n\n')
+            firstfile = file
+        else:
+            file = raw_input('Specify the full name and extension of the next file to read from..\n\n')
+
+
 
     with open(file, 'r') as f:
         first_line = f.readline()
@@ -33,7 +41,8 @@ while done == False:
 
     getIndexes()
 
-    emailindex = headers_array.index('email')
+    if 'email' in headers_array:
+        emailindex = headers_array.index('email')
 
 
     ## !----     SET STRUCTURE OF EXPORT TABLE #1 (REPLACE WITH YOUR NEW DESIRED CSV HEADERS)   -------!>
@@ -81,7 +90,9 @@ while done == False:
 
     def printAttrs():
         for key in dbAtts:
-            if dbAtts.get(key) == '':
+            if key == 'domain' or key == 'source':
+                print key + ': ' + "\033[34m Derived \033[0m"
+            elif dbAtts.get(key) == '':
                 print key + ': ' + "\033[31m Not Set \033[0m"
             else:
                 print key + ': ' + "\033[32m" + dbAtts.get(key) + "\033[0m"
@@ -96,7 +107,9 @@ while done == False:
 
     def printAttrs2():
         for key in dbAtts2:
-            if dbAtts2.get(key) == '':
+            if key == 'domain' or key == 'source':
+                print key + ': ' + "\033[34m Derived \033[0m"
+            elif dbAtts2.get(key) == '':
                 print key + ': ' + "\033[31m Not Set \033[0m"
             else:
                 print key + ': ' + "\033[32m" + dbAtts2.get(key) + "\033[0m"
@@ -212,6 +225,12 @@ while done == False:
                 except:
                     pass
 
+            if dbAtts.keys().index('source'):
+                try:
+                    newlinearray[dbAtts.keys().index('source')] = sourcevalue
+                except:
+                    pass
+
             ## WRITE TABLE #2 TO FILE (LINE BY LINE AND SAME AS ABOVE)
 
             for column_key2 in columnList2:
@@ -224,6 +243,12 @@ while done == False:
             if dbAtts2.keys().index('domain'):
                 try:
                     newlinearray2[dbAtts2.keys().index('domain')] = str(linearray[int(emailindex)]).split('@')[1].lower()
+                except:
+                    pass
+
+            if dbAtts2.keys().index('source'):
+                try:
+                    newlinearray2[dbAtts2.keys().index('source')] = sourcevalue
                 except:
                     pass
 
